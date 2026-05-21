@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Noise Monitoring Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+   <nav class="navbar">
+    <div class="logo">🎓 Noise Monitoring</div>
+    <div class="nav-links">
+        <a href="index.html" class="nav-btn">
+            🏠 Home
+        </a>
+        <a href="dashboard.html" class="nav-btn active">
+            📊 Dashboard
+        </a>
+        <a href="reports.html" class="nav-btn">
+            📁 Reports
+        </a>
+    </div>
+    </nav>
+
+    <h1>📊 Noise Monitoring Dashboard</h1>
+
+    <div class="cards">
+        <div class="card">
+            <h3>Current Mode</h3>
+            <p id="mode" class="mode-badge">-</p>
+    </div>
+
+        <div class="card">
+            <h3>Threshold (dB)</h3>
+            <p id="threshold">-</p>
+        </div>
+
+        <div class="card">
+            <h3>Total Readings</h3>
+            <p id="totalReadings">-</p>
+        </div>
+
+        <div class="card">
+            <h3>Total Alarms</h3>
+            <p id="totalAlarms">-</p>
+        </div>
+    </div>
+
+        <div class="chart-wrapper">
+            <canvas id="noiseChart"></canvas>
+        </div>
+
+        <div class="info-box">
+            <h4>📘 Noise Level Reference</h4>
+            <ul>
+                <li><strong>0 – 40 dB</strong> → Very Quiet (Focused / Exam Mode)</li>
+                <li><strong>40 – 60 dB</strong> → Normal Discussion</li>
+                <li><strong>60 – 75 dB</strong> → Active Classroom</li>
+                <li><strong>75+ dB</strong> → Chaotic / High Noise</li>
+            </ul>
+        </div>
+
+        <div style="display:flex; justify-content:center; align-items:center; gap:15px; margin-top:40px;">
+            <h2>🚨 Alarm Logs</h2>
+            <span id="refreshIndicator" class="refresh-indicator"></span>
+        </div>
+
+        <table id="alarmTable">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Classroom</th>
+                    <th>Actual dB</th>
+                    <th>Threshold</th>
+                    <th>Mode</th>
+                    <th>Time</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+
+    <script src="script.js"></script>
+</body>
+</html>
