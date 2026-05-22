@@ -1,0 +1,7 @@
+[build]
+builder = "NIXPACKS"
+
+buildCommand = "cd monitoring && chmod +x mvnw && ./mvnw clean package -DskipTests"
+
+[start]
+cmd = "cd monitoring && java -jar target/*.jar"
