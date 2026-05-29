@@ -1,70 +1,464 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
-    <title>Reports - Noise Monitoring</title>
-    <link rel="stylesheet" href="style.css">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Reports Center | Noise Monitoring
+    </title>
+
+    <!-- ========================================= -->
+    <!-- FAVICON -->
+    <!-- ========================================= -->
+
+    <link
+        rel="icon"
+        type="image/png"
+        href="https://cdn-icons-png.flaticon.com/512/9068/9068756.png"
+    >
+
+    <!-- ========================================= -->
+    <!-- GOOGLE FONT -->
+    <!-- ========================================= -->
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- ========================================= -->
+    <!-- REMIX ICON -->
+    <!-- ========================================= -->
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css"
+        rel="stylesheet"
+    >
+
+    <!-- ========================================= -->
+    <!-- MAIN STYLE -->
+    <!-- ========================================= -->
+
+    <link
+        rel="stylesheet"
+        href="css/style.css"
+    >
+
+    <!-- ========================================= -->
+    <!-- REPORT STYLE -->
+    <!-- ========================================= -->
+
+    <link
+        rel="stylesheet"
+        href="css/report.css"
+    >
+
 </head>
+
 <body>
 
-<nav class="navbar">
-        <div class="logo">🎓 Noise Monitoring</div>
-        <div class="nav-links">
-            <a href="index.html" class="nav-btn">
-                🏠 Home
-            </a>
-            <a href="dashboard.html" class="nav-btn">
-                📊 Dashboard
-            </a>
-            <a href="reports.html" class="nav-btn active">
-                📁 Reports
-            </a>
+    <!-- ========================================= -->
+    <!-- NAVBAR -->
+    <!-- ========================================= -->
+
+    <nav class="navbar">
+
+        <div class="logo-container">
+
+            <div class="logo-box">
+
+                <img
+                    src="https://cdn-icons-png.flaticon.com/512/9068/9068756.png"
+                    alt="logo"
+                    class="logo-icon"
+                >
+
+            </div>
+
+            <div class="logo-text">
+
+                <span class="logo-title">
+                    NOISE MONITORING
+                </span>
+
+                <span class="logo-subtitle">
+                    SMART CLASSROOM MONITORING SYSTEM
+                </span>
+
+            </div>
+
         </div>
+
+        <div class="nav-links">
+
+            <a
+                href="index.html"
+                class="nav-btn"
+            >
+
+                <i class="ri-home-5-line"></i>
+
+                <span>
+                    Home
+                </span>
+
+            </a>
+
+            <a
+                href="dashboard.html"
+                class="nav-btn"
+            >
+
+                <i class="ri-bar-chart-box-line"></i>
+
+                <span>
+                    Dashboard
+                </span>
+
+            </a>
+
+            <a
+                href="reports.html"
+                class="nav-btn active"
+            >
+
+                <i class="ri-file-chart-line"></i>
+
+                <span>
+                    Reports
+                </span>
+
+            </a>
+
+        </div>
+
     </nav>
 
-<h1 class="page-title">📁 Reports Center</h1>
+    <!-- ========================================= -->
+    <!-- REPORT SECTION -->
+    <!-- ========================================= -->
 
-<div class="cards" id="reportInfo"></div>
+    <section class="reports-section">
 
-<div class="action-buttons">
-    <button class="btn-primary" onclick="exportData()">📦 Export</button>
-    <button class="btn-danger" onclick="exportAndClean()">🧹 Export & Clean</button>
-</div>
+        <!-- ========================================= -->
+        <!-- GLOW EFFECT -->
+        <!-- ========================================= -->
 
-<div class="table-card">
-    <div class="table-card-header">
-        <h2>📊 Latest 200 Sensor Readings</h2>
-        <span id="reportsRefreshIndicator" class="refresh-indicator"></span>
-        <div class="table-controls">
-            <select id="classroomSelect">
-                <option value="1">Classroom 1</option>
-                <option value="2">Classroom 2</option>
-            </select>
+        <div class="reports-glow reports-glow-left"></div>
+
+        <div class="reports-glow reports-glow-right"></div>
+
+        <!-- ========================================= -->
+        <!-- REPORT HEADER -->
+        <!-- ========================================= -->
+
+        <div class="reports-header">
+
+            <!-- HEADER LEFT -->
+
+            <div class="reports-header-left">
+
+                <div class="reports-badge">
+
+                    <i class="ri-folder-chart-line"></i>
+
+                    <span>
+                        Reporting & Export Center
+                    </span>
+
+                </div>
+
+                <h1>
+                    Reports & Monitoring Analytics
+                </h1>
+
+                <p>
+
+                    Classroom analytics reporting center
+                    dengan adaptive statistical monitoring,
+                    export reporting,
+                    alarm activity analysis,
+                    database retention system,
+                    dan integrated monitoring dashboard.
+
+                </p>
+
+            </div>
+
+            <!-- STATUS CARD -->
+
+            <div class="reports-status-card">
+
+                <div class="status-row">
+
+                    <div class="pulse-dot"></div>
+
+                    <span>
+                        DATABASE STATUS
+                    </span>
+
+                </div>
+
+                <h2 id="reportCurrentTime">
+                    Waiting...
+                </h2>
+
+                <p>
+                    Last synchronized refresh
+                </p>
+
+            </div>
+
         </div>
-    </div>
 
-    <div class="loading" id="readingLoading">
-    <div class="spinner"></div>
-    </div>
+        <!-- ========================================= -->
+        <!-- REPORT TOP BAR -->
+        <!-- ========================================= -->
 
-    <table id="readingTable"></table>
+        <div class="reports-top-bar">
 
-</div>
+            <div class="reports-top-bar-left">
 
-<div class="table-card">
-    <div class="table-card-header">
-        <h2>🚨 Latest 100 Alarm Logs</h2>
-    </div>
+                <h2>
+                    Report Analytics
+                </h2>
 
-    <div class="loading" id="alarmLoading">
-    <div class="spinner"></div>
-    </div>
+                <p>
+                    Monitoring & retention analytics
+                </p>
 
-    <table id="alarmTable"></table>
+            </div>
 
-</div>
+            <!-- CONTROLS -->
 
-<script src="report.js"></script>
+            <div class="reports-controls">
+
+                <div
+                    id="reportsRefreshIndicator"
+                    class="refresh-badge"
+                >
+
+                    <i class="ri-loader-4-line rotating"></i>
+
+                    Syncing...
+
+                </div>
+
+                <div class="table-header-right">
+
+                    <select
+                        id="classroomSelect"
+                    >
+
+                        <option value="1">
+                            Classroom 1
+                        </option>
+
+                        <option value="2">
+                            Classroom 2
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- ========================================= -->
+        <!-- REPORT ANALYTICS GRID -->
+        <!-- ========================================= -->
+
+        <div
+            class="reports-cards-grid"
+            id="reportInfo"
+        ></div>
+
+        <!-- ========================================= -->
+        <!-- ACTION BUTTONS -->
+        <!-- ========================================= -->
+
+        <div class="reports-actions">
+
+            <button
+                class="btn-export"
+                onclick="exportData()"
+            >
+
+                <i class="ri-download-cloud-2-line"></i>
+
+                Export Report
+
+            </button>
+
+            <button
+                class="btn-clean"
+                onclick="exportAndClean()"
+            >
+
+                <i class="ri-delete-bin-6-line"></i>
+
+                Export & Cleanup
+
+            </button>
+
+        </div>
+
+        <!-- ========================================= -->
+        <!-- SENSOR READING TABLE -->
+        <!-- ========================================= -->
+
+        <div class="reports-table-card">
+
+            <div class="table-header-modern">
+
+                <div>
+
+                    <div class="reports-badge">
+
+                        <i class="ri-database-2-line"></i>
+
+                        <span>
+                            SENSOR DATA
+                        </span>
+
+                    </div>
+
+                    <h2>
+                        Latest Sensor Readings
+                    </h2>
+
+                    <p>
+                        Classroom monitoring readings
+                    </p>
+
+                </div>
+
+            </div>
+
+            <!-- ========================================= -->
+            <!-- LOADING -->
+            <!-- ========================================= -->
+
+            <div
+                class="loading-wrapper"
+                id="readingLoading"
+            >
+
+                <div class="modern-loader"></div>
+
+            </div>
+
+            <!-- ========================================= -->
+            <!-- TABLE -->
+            <!-- ========================================= -->
+
+            <div class="table-container">
+
+                <table id="readingTable"></table>
+
+            </div>
+
+        </div>
+
+        <!-- ========================================= -->
+        <!-- ALARM TABLE -->
+        <!-- ========================================= -->
+
+        <div class="reports-table-card">
+
+            <div class="table-header-modern">
+
+                <div>
+
+                    <div
+                        class="reports-badge"
+                        style="
+                            background:rgba(255,77,109,0.12);
+                            border:1px solid rgba(255,77,109,0.20);
+                            color:#ff8fa3;
+                        "
+                    >
+
+                        <i class="ri-alarm-warning-line"></i>
+
+                        <span>
+                            ALARM LOGS
+                        </span>
+
+                    </div>
+
+                    <h2>
+                        Alarm Activity Logs
+                    </h2>
+
+                    <p>
+                        Latest alarm detection
+                    </p>
+
+                </div>
+
+                <div class="alarm-live-badge">
+
+                    <div class="pulse-dot"></div>
+
+                    ALARM ALERTS
+
+                </div>
+
+            </div>
+
+            <!-- ========================================= -->
+            <!-- LOADING -->
+            <!-- ========================================= -->
+
+            <div
+                class="loading-wrapper"
+                id="alarmLoading"
+            >
+
+                <div class="modern-loader"></div>
+
+            </div>
+
+            <!-- ========================================= -->
+            <!-- TABLE -->
+            <!-- ========================================= -->
+
+            <div class="table-container">
+
+                <table id="alarmTable"></table>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- ========================================= -->
+    <!-- SCRIPT -->
+    <!-- ========================================= -->
+
+    <script src="js/report.js"></script>
 
 </body>
 </html>

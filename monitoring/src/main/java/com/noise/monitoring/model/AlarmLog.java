@@ -1,6 +1,7 @@
 package com.noise.monitoring.model;
 
 import jakarta.persistence.*;
+
 import java.time.LocalDateTime;
 
 @Entity
@@ -11,9 +12,21 @@ public class AlarmLog {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    /*
+     =========================================
+     BASIC INFO
+     =========================================
+    */
+
     private Long classroomId;
 
     private Long readingId;
+
+    /*
+     =========================================
+     ALARM SNAPSHOT
+     =========================================
+    */
 
     private Double triggeredThreshold;
 
@@ -22,27 +35,93 @@ public class AlarmLog {
     @Enumerated(EnumType.STRING)
     private SystemMode.ModeType modeAtTime;
 
+    /*
+     =========================================
+     TIME
+     =========================================
+    */
+
     private LocalDateTime triggeredAt;
 
-    // ===== Getter & Setter =====
+    // =========================================
+    // GETTER SETTER
+    // =========================================
 
-    public Long getId() { return id; }
+    public Long getId() {
 
-    public Long getClassroomId() { return classroomId; }
-    public void setClassroomId(Long classroomId) { this.classroomId = classroomId; }
+        return id;
+    }
 
-    public Long getReadingId() { return readingId; }
-    public void setReadingId(Long readingId) { this.readingId = readingId; }
+    public Long getClassroomId() {
 
-    public Double getTriggeredThreshold() { return triggeredThreshold; }
-    public void setTriggeredThreshold(Double triggeredThreshold) { this.triggeredThreshold = triggeredThreshold; }
+        return classroomId;
+    }
 
-    public Double getActualDb() { return actualDb; }
-    public void setActualDb(Double actualDb) { this.actualDb = actualDb; }
+    public void setClassroomId(
+            Long classroomId
+    ) {
 
-    public SystemMode.ModeType getModeAtTime() { return modeAtTime; }
-    public void setModeAtTime(SystemMode.ModeType modeAtTime) { this.modeAtTime = modeAtTime; }
+        this.classroomId = classroomId;
+    }
 
-    public LocalDateTime getTriggeredAt() { return triggeredAt; }
-    public void setTriggeredAt(LocalDateTime triggeredAt) { this.triggeredAt = triggeredAt; }
+    public Long getReadingId() {
+
+        return readingId;
+    }
+
+    public void setReadingId(
+            Long readingId
+    ) {
+
+        this.readingId = readingId;
+    }
+
+    public Double getTriggeredThreshold() {
+
+        return triggeredThreshold;
+    }
+
+    public void setTriggeredThreshold(
+            Double triggeredThreshold
+    ) {
+
+        this.triggeredThreshold =
+                triggeredThreshold;
+    }
+
+    public Double getActualDb() {
+
+        return actualDb;
+    }
+
+    public void setActualDb(
+            Double actualDb
+    ) {
+
+        this.actualDb = actualDb;
+    }
+
+    public SystemMode.ModeType getModeAtTime() {
+
+        return modeAtTime;
+    }
+
+    public void setModeAtTime(
+            SystemMode.ModeType modeAtTime
+    ) {
+
+        this.modeAtTime = modeAtTime;
+    }
+
+    public LocalDateTime getTriggeredAt() {
+
+        return triggeredAt;
+    }
+
+    public void setTriggeredAt(
+            LocalDateTime triggeredAt
+    ) {
+
+        this.triggeredAt = triggeredAt;
+    }
 }

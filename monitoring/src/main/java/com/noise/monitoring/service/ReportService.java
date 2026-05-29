@@ -2,20 +2,27 @@ package com.noise.monitoring.service;
 
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.noise.monitoring.model.SensorReading;
 import com.noise.monitoring.model.AlarmLog;
+
 import com.noise.monitoring.repository.SensorReadingRepository;
 import com.noise.monitoring.repository.AlarmLogRepository;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 import java.util.Set;
+
+import java.util.stream.Collectors;
 
 @Service
 public class ReportService {
@@ -27,8 +34,22 @@ public class ReportService {
     private AlarmLogRepository alarmRepository;
 
     // =====================================================
+    // RETENTION CONFIG
+    // =====================================================
+
+    private static final int AUTO_CLEANUP_LIMIT =
+            15000;
+
+    private static final int MANUAL_CLEANUP_LIMIT =
+            11500;
+
+    private static final int RETAIN_TRAINING_DATA =
+            8000;
+
+    // =====================================================
     // EXPORT XLSX REPORT
     // =====================================================
+
     public byte[] exportByClassroom(Long classroomId)
             throws IOException {
 
@@ -48,13 +69,235 @@ public class ReportService {
 
         Sheet sheet =
                 workbook.createSheet(
-                        "Noise Report"
+                        "Noise Monitoring Report"
                 );
+
+        // =====================================================
+        // STYLES
+        // =====================================================
+
+        CellStyle titleStyle =
+                workbook.createCellStyle();
+
+        Font titleFont =
+                workbook.createFont();
+
+        titleFont.setBold(true);
+
+        titleFont.setFontHeightInPoints(
+                (short) 16
+        );
+
+        titleStyle.setFont(titleFont);
+
+        CellStyle headerStyle =
+                workbook.createCellStyle();
+
+        Font headerFont =
+                workbook.createFont();
+
+        headerFont.setBold(true);
+
+        headerFont.setColor(
+                IndexedColors.WHITE.getIndex()
+        );
+
+        headerStyle.setFont(headerFont);
+
+        headerStyle.setFillForegroundColor(
+                IndexedColors.BLUE_GREY.getIndex()
+        );
+
+        headerStyle.setFillPattern(
+                FillPatternType.SOLID_FOREGROUND
+        );
+
+        headerStyle.setAlignment(
+                HorizontalAlignment.CENTER
+        );
+
+        headerStyle.setVerticalAlignment(
+                VerticalAlignment.CENTER
+        );
+
+        setBorder(headerStyle);
+
+        CellStyle dataStyle =
+                workbook.createCellStyle();
+
+        dataStyle.setAlignment(
+                HorizontalAlignment.CENTER
+        );
+
+        dataStyle.setVerticalAlignment(
+                VerticalAlignment.CENTER
+        );
+
+        dataStyle.setWrapText(true);
+
+        setBorder(dataStyle);
+
+        CellStyle infoLabelStyle =
+                workbook.createCellStyle();
+
+        Font infoFont =
+                workbook.createFont();
+
+        infoFont.setBold(true);
+
+        infoLabelStyle.setFont(infoFont);
+
+        infoLabelStyle.setFillForegroundColor(
+                IndexedColors.GREY_25_PERCENT.getIndex()
+        );
+
+        infoLabelStyle.setFillPattern(
+                FillPatternType.SOLID_FOREGROUND
+        );
+
+        infoLabelStyle.setAlignment(
+                HorizontalAlignment.CENTER
+        );
+
+        setBorder(infoLabelStyle);
+
+        CellStyle infoValueStyle =
+                workbook.createCellStyle();
+
+        infoValueStyle.setAlignment(
+                HorizontalAlignment.CENTER
+        );
+
+        setBorder(infoValueStyle);
+
+        // =====================================================
+        // TITLE
+        // =====================================================
+
+        Row titleRow =
+                sheet.createRow(0);
+
+        Cell titleCell =
+                titleRow.createCell(0);
+
+        titleCell.setCellValue(
+                "SMART NOISE MONITORING REPORT"
+        );
+
+        titleCell.setCellStyle(titleStyle);
+
+        // =====================================================
+        // REPORT INFO
+        // =====================================================
+
+        int totalReadings =
+                readings.size();
+
+        int totalAlarms =
+                alarms.size();
+
+        String systemStatus =
+                totalReadings >= AUTO_CLEANUP_LIMIT
+                        ? "AUTO CLEANUP ACTIVE"
+                        : totalReadings >= 12000
+                        ? "APPROACHING LIMIT"
+                        : "SAFE";
+
+        String generatedAt =
+                LocalDateTime.now()
+                .format(
+                        DateTimeFormatter.ofPattern(
+                                "yyyy-MM-dd HH:mm:ss"
+                        )
+                );
+
+        // =====================================================
+        // INFO TABLE (RIGHT SIDE)
+        // =====================================================
+
+        String[][] reportInfo = {
+
+                {
+                        "Classroom",
+                        "Classroom " + classroomId
+                },
+
+                {
+                        "Total Readings",
+                        String.valueOf(totalReadings)
+                },
+
+                {
+                        "Total Alarms",
+                        String.valueOf(totalAlarms)
+                },
+
+                {
+                        "Database Status",
+                        systemStatus
+                },
+
+                {
+                        "Retention Policy",
+                        AUTO_CLEANUP_LIMIT
+                                + " / "
+                                + RETAIN_TRAINING_DATA
+                },
+
+                {
+                        "Generated At",
+                        generatedAt
+                }
+        };
+
+        int infoStartCol = 12;
+
+        for (int i = 0; i < reportInfo.length; i++) {
+
+            Row row =
+                    sheet.getRow(i);
+
+            if (row == null) {
+
+                row =
+                        sheet.createRow(i);
+            }
+
+            Cell labelCell =
+                    row.createCell(
+                            infoStartCol
+                    );
+
+            labelCell.setCellValue(
+                    reportInfo[i][0]
+            );
+
+            labelCell.setCellStyle(
+                    infoLabelStyle
+            );
+
+            Cell valueCell =
+                    row.createCell(
+                            infoStartCol + 1
+                    );
+
+            valueCell.setCellValue(
+                    reportInfo[i][1]
+            );
+
+            valueCell.setCellStyle(
+                    infoValueStyle
+            );
+        }
 
         // =====================================================
         // HEADER
         // =====================================================
-        Row header = sheet.createRow(0);
+
+        int startRow = 3;
+
+        Row header =
+                sheet.createRow(startRow);
 
         String[] columns = {
 
@@ -72,16 +315,22 @@ public class ReportService {
 
         for (int i = 0; i < columns.length; i++) {
 
-            Cell cell = header.createCell(i);
+            Cell cell =
+                    header.createCell(i);
 
-            cell.setCellValue(columns[i]);
+            cell.setCellValue(
+                    columns[i]
+            );
+
+            cell.setCellStyle(
+                    headerStyle
+            );
         }
-
-        int rowIdx = 1;
 
         // =====================================================
         // ALARM REFERENCE
         // =====================================================
+
         Set<Long> alarmReadingIds =
                 alarms.stream()
                 .map(AlarmLog::getReadingId)
@@ -90,82 +339,135 @@ public class ReportService {
         // =====================================================
         // INSERT DATA
         // =====================================================
+
+        int rowIdx = startRow + 1;
+
         for (SensorReading reading : readings) {
 
             Row row =
                     sheet.createRow(rowIdx++);
 
-            row.createCell(0)
-                    .setCellValue(
-                            reading.getId()
-                    );
+            createCell(
+                    row,
+                    0,
+                    reading.getId(),
+                    dataStyle
+            );
 
-            row.createCell(1)
-                    .setCellValue(
-                            reading.getClassroomId()
-                    );
+            createCell(
+                    row,
+                    1,
+                    reading.getClassroomId(),
+                    dataStyle
+            );
 
-            row.createCell(2)
-                    .setCellValue(
-                            reading.getDbLevel()
-                    );
+            createCell(
+                    row,
+                    2,
+                    reading.getDbLevel(),
+                    dataStyle
+            );
 
-            row.createCell(3)
-                    .setCellValue(
-                            reading.getDominantFrequency()
-                    );
+            createCell(
+                    row,
+                    3,
+                    reading.getDominantFrequency(),
+                    dataStyle
+            );
 
-            row.createCell(4)
-                    .setCellValue(
-                            reading.getVariance()
-                    );
+            createCell(
+                    row,
+                    4,
+                    reading.getVariance(),
+                    dataStyle
+            );
 
-            row.createCell(5)
-                    .setCellValue(
-                            reading.getSpikeCount()
-                    );
+            createCell(
+                    row,
+                    5,
+                    reading.getSpikeCount(),
+                    dataStyle
+            );
 
-            row.createCell(6)
-                    .setCellValue(
-                            reading.getModeAtTime() != null
-                                    ? reading.getModeAtTime().name()
-                                    : "N/A"
-                    );
+            createCell(
+                    row,
+                    6,
+                    reading.getModeAtTime() != null
+                            ? reading.getModeAtTime().name()
+                            : "N/A",
+                    dataStyle
+            );
 
-            row.createCell(7)
-                    .setCellValue(
-                            reading.getThresholdAtTime() != null
-                                    ? reading.getThresholdAtTime()
-                                    : 0
-                    );
+            createCell(
+                    row,
+                    7,
+                    reading.getThresholdAtTime() != null
+                            ? reading.getThresholdAtTime()
+                            : 0,
+                    dataStyle
+            );
 
             boolean isAlarm =
                     alarmReadingIds.contains(
                             reading.getId()
                     );
 
-            row.createCell(8)
-                    .setCellValue(
-                            isAlarm ? "YES" : "NO"
-                    );
+            createCell(
+                    row,
+                    8,
+                    isAlarm ? "YES" : "NO",
+                    dataStyle
+            );
 
-            row.createCell(9)
-                    .setCellValue(
-                            reading.getRecordedAt().toString()
-                    );
+            createCell(
+                    row,
+                    9,
+                    reading.getRecordedAt()
+                            .toString(),
+                    dataStyle
+            );
         }
 
         // =====================================================
         // AUTO SIZE
         // =====================================================
-        for (int i = 0; i < columns.length; i++) {
 
-            sheet.autoSizeColumn(i);
+        int[] customWidths = {
+
+                5000,
+                5000,
+                5000,
+                6000,
+                6000,
+                5000,
+                7000,
+                6000,
+                4500,
+                9000
+        };
+
+        for (int i = 0; i < customWidths.length; i++) {
+
+            sheet.setColumnWidth(
+                    i,
+                    customWidths[i]
+            );
         }
+
+        sheet.setColumnWidth(
+                infoStartCol,
+                6000
+        );
+
+        sheet.setColumnWidth(
+                infoStartCol + 1,
+                7000
+        );
 
         // =====================================================
         // EXPORT
         // =====================================================
+
         ByteArrayOutputStream out =
                 new ByteArrayOutputStream();
 
@@ -179,6 +481,7 @@ public class ReportService {
     // =====================================================
     // EXPORT + AUTO CLEAN
     // =====================================================
+
     public byte[] exportAndClean(Long classroomId)
             throws IOException {
 
@@ -188,31 +491,145 @@ public class ReportService {
                         classroomId
                 );
 
-        int total = readings.size();
+        int total =
+                readings.size();
+
+        // =====================================================
+        // VALIDATION
+        // =====================================================
+
+        if (total < MANUAL_CLEANUP_LIMIT) {
+
+            throw new RuntimeException(
+
+                    "Cleanup hanya dapat dilakukan jika data >= "
+                            + MANUAL_CLEANUP_LIMIT
+            );
+        }
 
         // =====================================================
         // EXPORT FIRST
         // =====================================================
+
         byte[] file =
-                exportByClassroom(classroomId);
+                exportByClassroom(
+                        classroomId
+                );
 
         // =====================================================
-        // AUTO CLEAN
+        // CLEANUP
         // =====================================================
-        if (total > 15000) {
 
-            // SISAKAN 8500 DATA TERBARU
-            int deleteCount = total - 8500;
+        if (total > RETAIN_TRAINING_DATA) {
+
+            int deleteCount =
+                    total -
+                    RETAIN_TRAINING_DATA;
 
             List<SensorReading> toDelete =
                     new ArrayList<>(
-                            readings.subList(0, deleteCount)
+
+                            readings.subList(
+                                    0,
+                                    deleteCount
+                            )
                     );
 
-            // DELETE OLD READINGS
-            readingRepository.deleteAll(toDelete);
+            readingRepository.deleteAll(
+                    toDelete
+            );
         }
 
         return file;
+    }
+
+    // =====================================================
+    // AUTO CLEANUP
+    // =====================================================
+
+    public void automaticCleanup(Long classroomId) {
+
+        List<SensorReading> readings =
+                readingRepository
+                .findByClassroomIdOrderByRecordedAtAsc(
+                        classroomId
+                );
+
+        int total =
+                readings.size();
+
+        if (total > AUTO_CLEANUP_LIMIT) {
+
+            int deleteCount =
+                    total -
+                    RETAIN_TRAINING_DATA;
+
+            List<SensorReading> toDelete =
+                    new ArrayList<>(
+
+                            readings.subList(
+                                    0,
+                                    deleteCount
+                            )
+                    );
+
+            readingRepository.deleteAll(
+                    toDelete
+            );
+        }
+    }
+
+    // =====================================================
+    // CREATE CELL
+    // =====================================================
+
+    private void createCell(
+            Row row,
+            int column,
+            Object value,
+            CellStyle style
+    ) {
+
+        Cell cell =
+                row.createCell(column);
+
+        if (value instanceof Number) {
+
+            cell.setCellValue(
+                    ((Number) value)
+                    .doubleValue()
+            );
+
+        } else {
+
+            cell.setCellValue(
+                    String.valueOf(value)
+            );
+        }
+
+        cell.setCellStyle(style);
+    }
+
+    // =====================================================
+    // BORDER STYLE
+    // =====================================================
+
+    private void setBorder(CellStyle style) {
+
+        style.setBorderTop(
+                BorderStyle.THIN
+        );
+
+        style.setBorderBottom(
+                BorderStyle.THIN
+        );
+
+        style.setBorderLeft(
+                BorderStyle.THIN
+        );
+
+        style.setBorderRight(
+                BorderStyle.THIN
+        );
     }
 }

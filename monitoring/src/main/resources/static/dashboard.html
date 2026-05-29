@@ -1,86 +1,663 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
-    <title>Noise Monitoring Dashboard</title>
-    <link rel="stylesheet" href="style.css">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Dashboard | Noise Monitoring System
+    </title>
+
+    <!-- ===================================== -->
+    <!-- FAVICON -->
+    <!-- ===================================== -->
+
+    <link
+        rel="icon"
+        type="image/png"
+        href="https://cdn-icons-png.flaticon.com/512/4616/4616208.png"
+    >
+
+    <!-- ===================================== -->
+    <!-- GOOGLE FONT -->
+    <!-- ===================================== -->
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- ===================================== -->
+    <!-- FONT AWESOME -->
+    <!-- ===================================== -->
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    >
+
+    <!-- ===================================== -->
+    <!-- CHART JS -->
+    <!-- ===================================== -->
+
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- ===================================== -->
+    <!-- CSS -->
+    <!-- ===================================== -->
+
+    <link
+        rel="stylesheet"
+        href="css/style.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="css/dashboard.css"
+    >
+
 </head>
+
 <body>
 
-    <!-- NAVBAR -->
-   <nav class="navbar">
-    <div class="logo">🎓 Noise Monitoring</div>
+<!-- ===================================== -->
+<!-- NAVBAR -->
+<!-- ===================================== -->
+
+<nav class="navbar">
+
+    <div class="logo-container">
+
+        <div class="logo-box">
+
+            <img
+                src="https://cdn-icons-png.flaticon.com/512/4616/4616208.png"
+                class="logo-icon"
+                alt="logo"
+            >
+
+        </div>
+
+        <div class="logo-text">
+
+            <span class="logo-title">
+                NOISE MONITORING
+            </span>
+
+            <span class="logo-subtitle">
+                SMART CLASSROOM MONITORING SYSTEM
+            </span>
+
+        </div>
+
+    </div>
+
+    <!-- NAVIGATION -->
+
     <div class="nav-links">
-        <a href="index.html" class="nav-btn">
-            🏠 Home
+
+        <a
+            href="index.html"
+            class="nav-btn"
+        >
+
+            <i class="fa-solid fa-house"></i>
+
+            <span>Home</span>
+
         </a>
-        <a href="dashboard.html" class="nav-btn active">
-            📊 Dashboard
+
+        <a
+            href="dashboard.html"
+            class="nav-btn active"
+        >
+
+            <i class="fa-solid fa-chart-simple"></i>
+
+            <span>Dashboard</span>
+
         </a>
-        <a href="reports.html" class="nav-btn">
-            📁 Reports
+
+        <a
+            href="reports.html"
+            class="nav-btn"
+        >
+
+            <i class="fa-solid fa-file-lines"></i>
+
+            <span>Reports</span>
+
         </a>
+
     </div>
-    </nav>
 
-    <h1>📊 Noise Monitoring Dashboard</h1>
+</nav>
 
-    <div class="cards">
-        <div class="card">
-            <h3>Current Mode</h3>
-            <p id="mode" class="mode-badge">-</p>
-    </div>
+<!-- ===================================== -->
+<!-- MAIN DASHBOARD -->
+<!-- ===================================== -->
 
-        <div class="card">
-            <h3>Threshold (dB)</h3>
-            <p id="threshold">-</p>
+<section class="dashboard-modern">
+
+    <!-- ===================================== -->
+    <!-- BACKGROUND GLOW -->
+    <!-- ===================================== -->
+
+    <div class="dashboard-glow dashboard-glow-left"></div>
+
+    <div class="dashboard-glow dashboard-glow-right"></div>
+
+    <!-- ===================================== -->
+    <!-- HERO SECTION -->
+    <!-- ===================================== -->
+
+    <div class="dashboard-hero-card">
+
+        <!-- LEFT -->
+
+        <div class="dashboard-hero-left">
+
+            <div class="dashboard-badge">
+
+                <i class="fa-solid fa-wave-square"></i>
+
+                <span>
+                    MONITORING ACTIVE
+                </span>
+
+            </div>
+
+            <h1>
+                Smart Classroom Analytics
+            </h1>
+
+            <p>
+
+                Monitoring system menggunakan frontend static
+                + hardware IOT dengan Machine Learning,
+                MQTT Communication,
+                Statistical Analysis,
+                dan Dynamic Threshold Detection.
+
+            </p>
+
         </div>
 
-        <div class="card">
-            <h3>Total Readings</h3>
-            <p id="totalReadings">-</p>
+        <!-- RIGHT -->
+
+        <div class="dashboard-live-card">
+
+            <div class="live-dot"></div>
+
+            <span>
+                LIVE MONITORING
+            </span>
+
+            <h2 id="liveClock">
+                --:--:--
+            </h2>
+
+            <p>
+                Synchronized monitoring
+            </p>
+
         </div>
 
-        <div class="card">
-            <h3>Total Alarms</h3>
-            <p id="totalAlarms">-</p>
-        </div>
     </div>
 
-        <div class="chart-wrapper">
+    <!-- ===================================== -->
+    <!-- SYSTEM ANALYTICS -->
+    <!-- ===================================== -->
+
+    <div class="dashboard-card-wrapper">
+
+        <div class="table-header-modern">
+
+            <div>
+
+                <h2>
+                    System Analytics
+                </h2>
+
+                <p>
+                    Adaptive classroom monitoring system
+                </p>
+
+            </div>
+
+            <!-- CONTROLS -->
+
+            <div class="dashboard-chart-controls">
+
+                <!-- REFRESH -->
+
+                <div class="refresh-badge">
+
+                    <i
+                        class="fa-solid fa-rotate rotating"
+                        id="refreshIcon"
+                    ></i>
+
+                    <span id="refreshIndicator">
+                        SYNCHRONIZED
+                    </span>
+
+                </div>
+
+                <!-- CLASSROOM -->
+
+                <select
+                    id="classroomSelect"
+                    class="dashboard-select"
+                >
+
+                    <option value="1">
+                        Classroom 1
+                    </option>
+
+                    <option value="2">
+                        Classroom 2
+                    </option>
+
+                    <option value="3">
+                        Classroom 3
+                    </option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+        <!-- ===================================== -->
+        <!-- MONITORING CARDS -->
+        <!-- ===================================== -->
+
+        <div class="cards">
+
+            <!-- CURRENT MODE -->
+
+            <div class="card modern-card mode-card">
+
+                <div>
+
+                    <h3>
+                        Current Mode
+                    </h3>
+
+                    <p
+                        id="mode"
+                        class="mode-badge"
+                    >
+                        -
+                    </p>
+
+                    <span>
+                        Classroom mode
+                    </span>
+
+                </div>
+
+            </div>
+
+            <!-- THRESHOLD -->
+
+            <div class="card modern-card">
+
+                <div class="card-icon cyan">
+
+                    <i class="fa-solid fa-sliders"></i>
+
+                </div>
+
+                <div>
+
+                    <h3>
+                        Threshold
+                    </h3>
+
+                    <p id="threshold">
+                        -
+                    </p>
+
+                    <span>
+                        Adaptive dB threshold
+                    </span>
+
+                </div>
+
+            </div>
+
+            <!-- TOTAL READINGS -->
+
+            <div class="card modern-card">
+
+                <div class="card-icon green">
+
+                    <i class="fa-solid fa-database"></i>
+
+                </div>
+
+                <div>
+
+                    <h3>
+                        Total Readings
+                    </h3>
+
+                    <p id="totalReadings">
+                        -
+                    </p>
+
+                    <span>
+                        Sensor readings stored
+                    </span>
+
+                </div>
+
+            </div>
+
+            <!-- TOTAL ALARMS -->
+
+            <div class="card modern-card">
+
+                <div class="card-icon red">
+
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+
+                </div>
+
+                <div>
+
+                    <h3>
+                        Total Alarms
+                    </h3>
+
+                    <p id="totalAlarms">
+                        -
+                    </p>
+
+                    <span>
+                        Alarm alerts triggered
+                    </span>
+
+                </div>
+
+            </div>
+
+            <!-- CURRENT DB -->
+
+            <div class="card modern-card">
+
+                <div class="card-icon orange">
+
+                    <i class="fa-solid fa-volume-high"></i>
+
+                </div>
+
+                <div>
+
+                    <h3>
+                        Current dB
+                    </h3>
+
+                    <p id="currentDb">
+                        -
+                    </p>
+
+                    <span>
+                        Current noise level
+                    </span>
+
+                </div>
+
+            </div>
+
+            <!-- PREDICTION -->
+
+            <div class="card modern-card ai-card">
+
+                <div>
+
+                    <h3>
+                        Prediction
+                    </h3>
+
+                    <p id="prediction">
+                        -
+                    </p>
+
+                    <span>
+                        Machine learning classification result
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- ===================================== -->
+    <!-- CHART -->
+    <!-- ===================================== -->
+
+    <div class="dashboard-card-wrapper">
+
+        <div class="table-header-modern">
+
+            <div>
+
+                <span class="chart-mini-badge">
+
+                    LIVE ANALYTICS
+
+                </span>
+
+                <h2>
+                    Noise Chart
+                </h2>
+
+                <p>
+                    Dynamic threshold visualization
+                </p>
+
+            </div>
+
+        </div>
+
+        <!-- CHART -->
+
+        <div class="chart-card-modern">
+
             <canvas id="noiseChart"></canvas>
+
         </div>
 
-        <div class="info-box">
-            <h4>📘 Noise Level Reference</h4>
-            <ul>
-                <li><strong>0 – 40 dB</strong> → Very Quiet (Focused / Exam Mode)</li>
-                <li><strong>40 – 60 dB</strong> → Normal Discussion</li>
-                <li><strong>60 – 75 dB</strong> → Active Classroom</li>
-                <li><strong>75+ dB</strong> → Chaotic / High Noise</li>
-            </ul>
+    </div>
+
+    <!-- ===================================== -->
+    <!-- DOUBLE GRID -->
+    <!-- ===================================== -->
+
+    <div class="dashboard-double-grid">
+
+        <!-- NOISE REFERENCE -->
+
+        <div class="dashboard-card-wrapper">
+
+            <div class="dashboard-section-title">
+
+                <h2>
+
+                    <i class="fa-solid fa-volume-high"></i>
+
+                    Noise Reference
+
+                </h2>
+
+            </div>
+
+            <div class="info-box-modern">
+
+                <ul>
+
+                    <li>
+                        0 - 40 dB → FOCUSED / EXAM MODE
+                    </li>
+
+                    <li>
+                        40 - 60 dB → DISCUSSION MODE
+                    </li>
+
+                    <li>
+                        60 - 75 dB → ACTIVE CLASSROOM
+                    </li>
+
+                    <li>
+                        75+ dB → CHAOTIC / HIGH NOISE
+                    </li>
+
+                </ul>
+
+            </div>
+
         </div>
 
-        <div style="display:flex; justify-content:center; align-items:center; gap:15px; margin-top:40px;">
-            <h2>🚨 Alarm Logs</h2>
-            <span id="refreshIndicator" class="refresh-indicator"></span>
+        <!-- SYSTEM INFO -->
+
+        <div class="dashboard-card-wrapper">
+
+            <div class="dashboard-section-title">
+
+                <h2>
+
+                    <i class="fa-solid fa-gear"></i>
+
+                    System Synchronization
+
+                </h2>
+
+            </div>
+
+            <div class="info-box-modern">
+
+                <ul>
+
+                    <li>
+                        MQTT Communication
+                    </li>
+
+                    <li>
+                        ESP32 Sensor Synchronization
+                    </li>
+
+                    <li>
+                        Adaptive Threshold Detection
+                    </li>
+
+                    <li>
+                        Auto Refresh Every 5 Seconds
+                    </li>
+
+                </ul>
+
+            </div>
+
         </div>
 
-        <table id="alarmTable">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Classroom</th>
-                    <th>Actual dB</th>
-                    <th>Threshold</th>
-                    <th>Mode</th>
-                    <th>Time</th>
-                </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
+    </div>
 
-    <script src="script.js"></script>
+    <!-- ===================================== -->
+    <!-- ALARM TABLE -->
+    <!-- ===================================== -->
+
+    <div class="dashboard-card-wrapper">
+
+        <div class="table-header-modern">
+
+            <div>
+
+                <h2>
+                    Alarm Activity Logs
+                </h2>
+
+                <p>
+                    Latest alerts
+                </p>
+
+            </div>
+
+            <div class="alarm-live-badge">
+
+                <div class="pulse-dot"></div>
+
+                ALARM ALERTS
+
+            </div>
+
+        </div>
+
+        <!-- TABLE -->
+
+        <div class="table-container">
+
+            <table id="alarmTable">
+
+                <thead>
+
+                    <tr>
+
+                        <th>ID</th>
+
+                        <th>Classroom</th>
+
+                        <th>Actual dB</th>
+
+                        <th>Threshold</th>
+
+                        <th>Mode</th>
+
+                        <th>Time</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ===================================== -->
+<!-- JAVASCRIPT -->
+<!-- ===================================== -->
+
+<script src="js/script.js"></script>
+
 </body>
 </html>

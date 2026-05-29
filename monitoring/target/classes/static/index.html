@@ -1,48 +1,420 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
-    <title>Smart Classroom Noise Monitoring</title>
-    <link rel="stylesheet" href="style.css">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Smart Classroom Monitoring System
+    </title>
+
+    <!-- ========================================= -->
+    <!-- FAVICON -->
+    <!-- ========================================= -->
+
+    <link
+        rel="icon"
+        type="image/png"
+        href="https://cdn-icons-png.flaticon.com/512/9068/9068756.png"
+    >
+
+    <!-- ========================================= -->
+    <!-- GOOGLE FONT -->
+    <!-- ========================================= -->
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- ========================================= -->
+    <!-- REMIX ICON -->
+    <!-- ========================================= -->
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css"
+        rel="stylesheet"
+    >
+
+    <!-- ========================================= -->
+    <!-- MAIN STYLE -->
+    <!-- ========================================= -->
+
+    <link
+        rel="stylesheet"
+        href="css/style.css"
+    >
+
 </head>
+
 <body>
 
+    <!-- ========================================= -->
     <!-- NAVBAR -->
+    <!-- ========================================= -->
+
     <nav class="navbar">
-    <div class="logo">🎓 Noise Monitoring</div>
-    <div class="nav-links">
-        <a href="index.html" class="nav-btn active">
-            🏠 Home
-        </a>
-        <a href="dashboard.html" class="nav-btn">
-            📊 Dashboard
-        </a>
-        <a href="reports.html" class="nav-btn">
-            📁 Reports
-        </a>
-    </div>
+
+        <div class="logo-container">
+
+            <div class="logo-box">
+
+                <img
+                    src="https://cdn-icons-png.flaticon.com/512/9068/9068756.png"
+                    alt="logo"
+                    class="logo-icon"
+                >
+
+            </div>
+
+            <div class="logo-text">
+
+                <span class="logo-title">
+                    NOISE MONITORING
+                </span>
+
+                <span class="logo-subtitle">
+                    SMART CLASSROOM MONITORING SYSTEM
+                </span>
+
+            </div>
+
+        </div>
+
+        <!-- ========================================= -->
+        <!-- NAVIGATION -->
+        <!-- ========================================= -->
+
+        <div class="nav-links">
+
+            <a
+                href="index.html"
+                class="nav-btn active"
+            >
+
+                <i class="ri-home-5-line"></i>
+
+                <span>
+                    Home
+                </span>
+
+            </a>
+
+            <a
+                href="dashboard.html"
+                class="nav-btn"
+            >
+
+                <i class="ri-bar-chart-box-line"></i>
+
+                <span>
+                    Dashboard
+                </span>
+
+            </a>
+
+            <a
+                href="reports.html"
+                class="nav-btn"
+            >
+
+                <i class="ri-file-chart-line"></i>
+
+                <span>
+                    Reports
+                </span>
+
+            </a>
+
+        </div>
+
     </nav>
 
+    <!-- ========================================= -->
     <!-- HERO SECTION -->
-    <section class="hero-layer">
-        <div class="overlay"></div>
+    <!-- ========================================= -->
 
-        <div class="hero-content">
-            <h1>Smart Classroom Noise Monitoring System</h1>
+    <section class="hero-section">
 
-            <p>
-                Sistem monitoring kebisingan berbasis smart system.
-                Menggunakan threshold adaptif (mean + k × std dev), deteksi mode aktivitas,
-                serta klasifikasi suara.
-            </p>
+        <!-- ========================================= -->
+        <!-- OVERLAY -->
+        <!-- ========================================= -->
 
-            <div class="cta-container">
-                <a href="dashboard.html" class="btn-modern">
-                    🚀 Go to Dashboard
-                </a>
+        <div class="hero-overlay"></div>
+
+        <!-- ========================================= -->
+        <!-- GLOW -->
+        <!-- ========================================= -->
+
+        <div class="hero-glow hero-glow-1"></div>
+
+        <div class="hero-glow hero-glow-2"></div>
+
+        <!-- ========================================= -->
+        <!-- HERO CONTAINER -->
+        <!-- ========================================= -->
+
+        <div class="hero-container">
+
+            <!-- ========================================= -->
+            <!-- HERO LEFT -->
+            <!-- ========================================= -->
+
+            <div class="hero-left">
+
+                <!-- BADGE -->
+
+                <div class="hero-badge">
+
+                    <i class="ri-radar-line"></i>
+
+                    <span>
+                        Adaptive Monitoring Platform
+                    </span>
+
+                </div>
+
+                <!-- TITLE -->
+
+                <h1>
+
+                    Smart Classroom
+                    Noise Monitoring
+                    System
+
+                </h1>
+
+                <!-- DESCRIPTION -->
+
+                <p>
+
+                    Smart classroom monitoring platform
+                    powered by IoT, statistical analytics,
+                    adaptive threshold, audio frequency analysis,
+                    and classroom activity classification.
+
+                </p>
+
+                <!-- BUTTONS -->
+
+                <div class="hero-buttons">
+
+                    <a
+                        href="dashboard.html"
+                        class="btn-primary"
+                    >
+
+                        <i class="ri-dashboard-3-line"></i>
+
+                        Open Dashboard
+
+                    </a>
+
+                    <a
+                        href="reports.html"
+                        class="btn-secondary"
+                    >
+
+                        <i class="ri-file-chart-line"></i>
+
+                        Analytics Reports
+
+                    </a>
+
+                </div>
+
+                <!-- ========================================= -->
+                <!-- HERO STATS -->
+                <!-- ========================================= -->
+
+                <div class="hero-stats">
+
+                    <!-- ITEM -->
+
+                    <div class="stat-box">
+
+                        <h3>
+                            Analysis
+                        </h3>
+
+                        <span>
+                            Adaptive Threshold
+                        </span>
+
+                    </div>
+
+                    <!-- ITEM -->
+
+                    <div class="stat-box">
+
+                        <h3>
+                            IoT
+                        </h3>
+
+                        <span>
+                            ESP32 Integrated
+                        </span>
+
+                    </div>
+
+                    <!-- ITEM -->
+
+                    <div class="stat-box">
+
+                        <h3>
+                            UI
+                        </h3>
+
+                        <span>
+                            Comfy Design
+                        </span>
+
+                    </div>
+
+                </div>
+
             </div>
+
+            <!-- ========================================= -->
+            <!-- HERO RIGHT -->
+            <!-- ========================================= -->
+
+            <div class="hero-right">
+
+                <div class="monitor-card">
+
+                    <!-- HEADER -->
+
+                    <div class="monitor-header">
+
+                        <div class="monitor-dot"></div>
+
+                        <span>
+                            Classroom Monitoring
+                        </span>
+
+                    </div>
+
+                    <!-- IMAGE -->
+
+                    <img
+                        src="https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=1200"
+                        alt="monitoring"
+                        class="monitor-image"
+                    >
+
+                    <!-- CONTENT -->
+
+                    <div class="monitor-content">
+
+                        <!-- ITEM -->
+
+                        <div class="monitor-item">
+
+                            <div class="monitor-icon">
+
+                                <i class="ri-volume-up-line"></i>
+
+                            </div>
+
+                            <div>
+
+                                <h4>
+                                    Noise Analysis
+                                </h4>
+
+                                <p>
+
+                                    Continuous audio monitoring
+                                    with adaptive threshold detection.
+
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                        <!-- ITEM -->
+
+                        <div class="monitor-item">
+
+                            <div class="monitor-icon">
+
+                                <i class="ri-cpu-line"></i>
+
+                            </div>
+
+                            <div>
+
+                                <h4>
+                                    Activity Classification
+                                </h4>
+
+                                <p>
+
+                                    Classroom behavior recognition
+                                    and frequency analysis.
+
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                        <!-- ITEM -->
+
+                        <div class="monitor-item">
+
+                            <div class="monitor-icon">
+
+                                <i class="ri-line-chart-line"></i>
+
+                            </div>
+
+                            <div>
+
+                                <h4>
+                                    Analytics Dashboard
+                                </h4>
+
+                                <p>
+
+                                    Monitoring dashboard
+                                    with info visualization system.
+
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
         </div>
+
     </section>
 
 </body>
+
 </html>

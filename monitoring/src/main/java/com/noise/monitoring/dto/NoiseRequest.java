@@ -12,15 +12,19 @@ public class NoiseRequest {
 
     private int spikeCount;
 
-    // =========================
-    // GETTER & SETTER
-    // =========================
+    /*
+     =========================================
+     GETTER & SETTER
+     =========================================
+    */
 
     public Long getClassroomId() {
         return classroomId;
     }
 
-    public void setClassroomId(Long classroomId) {
+    public void setClassroomId(
+            Long classroomId
+    ) {
         this.classroomId = classroomId;
     }
 
@@ -28,7 +32,9 @@ public class NoiseRequest {
         return dbLevel;
     }
 
-    public void setDbLevel(double dbLevel) {
+    public void setDbLevel(
+            double dbLevel
+    ) {
         this.dbLevel = dbLevel;
     }
 
@@ -36,15 +42,20 @@ public class NoiseRequest {
         return dominantFrequency;
     }
 
-    public void setDominantFrequency(double dominantFrequency) {
-        this.dominantFrequency = dominantFrequency;
+    public void setDominantFrequency(
+            double dominantFrequency
+    ) {
+        this.dominantFrequency =
+                dominantFrequency;
     }
 
     public double getVariance() {
         return variance;
     }
 
-    public void setVariance(double variance) {
+    public void setVariance(
+            double variance
+    ) {
         this.variance = variance;
     }
 
@@ -52,7 +63,21 @@ public class NoiseRequest {
         return spikeCount;
     }
 
-    public void setSpikeCount(int spikeCount) {
+    public void setSpikeCount(
+            int spikeCount
+    ) {
         this.spikeCount = spikeCount;
+    }
+
+    @Override
+    public String toString() {
+
+        return "NoiseRequest{" +
+                "classroomId=" + classroomId +
+                ", dbLevel=" + dbLevel +
+                ", dominantFrequency=" + dominantFrequency +
+                ", variance=" + variance +
+                ", spikeCount=" + spikeCount +
+                '}';
     }
 }
